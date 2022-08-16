@@ -6,7 +6,7 @@ const FEEDBACK_KEY = 'feedback-form-state';
 const formData = {};
 const refs = {
   formEl: document.querySelector('.feedback-form'),
-  textarea: document.querySelector('.feedback-form textarea'),
+  // textarea: document.querySelector('.feedback-form textarea'),
 };
 
 refs.formEl.addEventListener('submit', onFormSend);
@@ -18,17 +18,20 @@ function onFormDataInput(event) {
 }
 
 function onFormSend(event) {
+  console.log(JSON.parse(localStorage.getItem(FEEDBACK_KEY)));
   event.preventDefault();
   event.currentTarget.reset();
   localStorage.removeItem(FEEDBACK_KEY);
-  console.log(formData);
 }
 
 function storageGetItem() {
-  const saveMassage = JSON.parse(localStorage.getItem(FEEDBACK_KEY));
-  if (saveMassage) {
-    refs.formEl.email.value = saveMassage.email;
-    refs.formEl.message.value = saveMassage.message;
+  const message = JSON.parse(localStorage.getItem(FEEDBACK_KEY));
+  if (message) {
+    refs.formEl.email.value = message.email;
+    refs.formEl.message.value = message.message;
+  } else {
+    refs.formEl.email.value = null;
+    refs.formEl.message.value = null;
   }
 }
 storageGetItem();
