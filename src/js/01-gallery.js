@@ -3,28 +3,20 @@ import { galleryItems } from './gallery-items';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 // Change code below this line
-const refs = {
-  galleryEl: document.querySelector('.gallery'),
-};
 
-let items = galleryItems.map(item => {
-  return ` 
+const galleryEl = document.querySelector('.gallery');
+
+galleryEl.innerHTML = galleryItems
+  .map(item => {
+    return ` 
 <a class="gallery__item" href="${item.original}">
   <img class="gallery__image" src="${item.preview}" alt="${item.description}" />
 </a>
 `;
+  })
+  .join('');
+
+let gallery = new SimpleLightbox('.gallery__item', {
+  captionsData: 'alt',
+  captionsDelay: 250,
 });
-refs.galleryEl.innerHTML = items.join('');
-
-// открыть модал
-refs.galleryEl.addEventListener('click', onModalClick);
-
-function onModalClick(event) {
-  event.preventDefault();
-  if (event.target.nodeName !== 'IMG') return;
-  let gallery = new SimpleLightbox('.gallery__item', {
-    captionsData: 'alt',
-    captionsDelay: 250,
-  });
-  gallery.on('show.simplelightbox', function () {});
-}
