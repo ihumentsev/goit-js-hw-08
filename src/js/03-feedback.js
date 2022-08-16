@@ -21,6 +21,7 @@ function onFormSend(event) {
   event.preventDefault();
   event.currentTarget.reset();
   localStorage.removeItem(FEEDBACK_KEY);
+  console.log(formData);
 }
 
 function storageGetItem() {
