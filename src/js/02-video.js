@@ -12,19 +12,11 @@ player.getVideoTitle().then(function (title) {
   console.log('title:', title);
 });
 // ------------
+player.on('timeupdate', throttle(onPlay, 1000));
 
-const onPlay = function (data) {
-  console.log(data);
-
-  throttle(
-    player.on('timeupdate', function (data) {
-      console.log(data);
-      localStorage.setItem('videoplayer-current-time', JSON.stringify(data));
-
-      // data is an object containing properties specific to that event
-    }),
-    1000
-  );
-};
-
-player.on('play', onPlay);
+function onPlay(data) {
+  localStorage.setItem('videoplayer-current-time', JSON.stringify(data));
+}
+// ------------
+const massage = JSON.parse(localStorage.getItem('videoplayer-current-time'));
+player.setCurrentTime(massage.seconds);
