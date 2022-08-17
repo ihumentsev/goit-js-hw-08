@@ -1,23 +1,22 @@
 import Player from '@vimeo/player';
 import throttle from 'lodash.throttle';
 // -------------
+const CURRENT_TIMER = 'videoplayer - current - time';
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
 player.on(
   'timeupdate',
   throttle(function ({ seconds }) {
-    localStorage.setItem('videoplayer-current-time', seconds);
+    localStorage.setItem(CURRENT_TIMER, seconds);
   }, 1000)
 );
 
 // ------------
-const message = localStorage.getItem('videoplayer-current-time');
+const message = localStorage.getItem(CURRENT_TIMER);
 function getCurrenTime() {
   if (message) {
-    player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
-  } else {
-    player.setCurrentTime(0);
+    player.setCurrentTime(localStorage.getItem(CURRENT_TIMER) || 0);
   }
 }
 getCurrenTime();

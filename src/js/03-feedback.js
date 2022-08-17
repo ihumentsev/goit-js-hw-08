@@ -14,7 +14,7 @@ refs.formEl.addEventListener('submit', onFormSend);
 refs.formEl.addEventListener('input', throttle(onFormDataInput, 500));
 
 function onFormDataInput(event) {
-  let formData = {
+  formData = {
     email: refs.onEmail.value,
     message: refs.onMessage.value,
   };
@@ -31,11 +31,6 @@ function onFormSend(event) {
   }
 }
 
-// function storageGetItem() {
-//   const formData = JSON.parse(localStorage.getItem(FEEDBACK_KEY));
-//   // console.log(message);
-// }
-// storageGetItem();
 function getFormValue() {
   const saveFeedback = JSON.parse(localStorage.getItem(FEEDBACK_KEY));
   if (saveFeedback) {
